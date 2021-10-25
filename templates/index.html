@@ -15,20 +15,17 @@
     <script type="module" src="{{ url_for('static', filename='game.js') }}" defer></script>
 </head>
 <body>
+    <h1>Choose your Theme</h1>
     <div class="container align-middle">
         <div class="row">
             <div class="col">
-                <button onclick="" id="lotr">1</button>
-                <script type="text/javascript">
-                    let buttons = document.getElementById("lotr");
-                    buttons.innerHTML = '<img src="static/pictures/LOTR/LOTR.jpg" />';
-                </script>
+                <button onclick="" id="lotr"><img src="static/pictures/LOTR/LOTR.jpg" /></button>
             </div>
             <div class="col">
-                <button onclick="">2</button>
+                <button onclick="" id="shrek"><img src="static/pictures/Shrek/SHREK.jpg" /></button>
             </div>
             <div class="col">
-                <button onclick="">3</button>
+                <button onclick="" id="marvel"><img src="static/pictures/Marvel/MARVEL.jpg" /></button>
             </div>
         </div>
     </div>
