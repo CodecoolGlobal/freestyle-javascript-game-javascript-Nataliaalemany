@@ -1,8 +1,9 @@
-.menu_selection {
-    display: flex;
-    flex-direction: row;
-    margin: auto;
-    width: 50%;
-    padding: 10px;
+.container {
+    padding-top: 50vh;
+    text-align: center;
+    height: 100vh;
+}
 
+.row {
+    text-align: center;
 }
