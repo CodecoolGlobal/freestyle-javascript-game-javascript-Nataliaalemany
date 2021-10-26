@@ -14,25 +14,22 @@
     <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">
     <script type="module" src="{{ url_for('static', filename='game.js') }}" defer></script>
 </head>
-<body>
+<body id="menu">
     <h1>Choose level</h1>
     <div class="container align-middle">
         <div class="row">
             <div class="col">
-                <form method="post" >
-                    <input type="hidden" value="lotr" name="theme">
+                <form method="get" action="/play/{{ theme }}/level_one">
                     <button type=submit id="lotr"><img src="/static/pictures/{{ theme }}/LevelOne.jpg" /></button>
                 </form>
             </div>
             <div class="col">
-                <form method="post" >
-                    <input type="hidden" value="shrek" name="theme">
+                <form method="get" action="/play/{{ theme }}/level_two">
                     <button type=submit id="shrek"><img src="/static/pictures/{{ theme }}/LevelTwo.jpg" /></button>
                 </form>
             </div>
             <div class="col">
-                <form method="post" >
-                    <input type="hidden" value="marvel" name="theme">
+                <form method="get" action="/play/{{ theme }}/level_three">
                     <button type=submit id="marvel"><img src="/static/pictures/{{ theme }}/LevelThree.jpg" /></button>
                 </form>
             </div>

@@ -17,6 +17,17 @@ def level_selection(type):
     return render_template('level_selection.html', theme=type)
 
 
+@app.route('/play/<theme>/<level>')
+def play(theme, level):
+    gamenames = {'lotr': 'LOTR',
+                 'marvel': 'Avengers',
+                 'shrek': 'Shrek'}
+    levels = {'level_one': 'LVL1',
+              'level_two': 'LVL2',
+              'level_three': 'LVL3'}
+    return render_template('gamespace.html', theme=gamenames[theme], level=levels[level])
+
+
 if __name__ == '__main__':
     app.run(
         debug=True,     # Allow verbose error reports

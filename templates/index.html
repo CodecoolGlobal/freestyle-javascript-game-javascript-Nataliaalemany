@@ -14,26 +14,26 @@
     <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">
     <script type="module" src="{{ url_for('static', filename='game.js') }}" defer></script>
 </head>
-<body>
+<body id="menu">
     <h1>Choose your Theme</h1>
     <div class="container align-middle">
         <div class="row">
             <div class="col">
                 <form method="post" >
                     <input type="hidden" value="lotr" name="theme">
-                    <button type=submit id="lotr"><img src="static/pictures/lotr/LOTR.jpg" /></button>
+                    <button type=submit id="lotr"><img src="static/pictures/lotr/LOTR.png" /></button>
                 </form>
             </div>
             <div class="col">
                 <form method="post" >
                     <input type="hidden" value="shrek" name="theme">
-                    <button type=submit id="shrek"><img src="static/pictures/shrek/SHREK.jpg" /></button>
+                    <button type=submit id="shrek"><img src="static/pictures/shrek/SHREK.png" /></button>
                 </form>
             </div>
             <div class="col">
                 <form method="post" >
                     <input type="hidden" value="marvel" name="theme">
-                    <button type=submit id="marvel"><img src="static/pictures/marvel/MARVEL.jpg" /></button>
+                    <button type=submit id="marvel"><img src="static/pictures/marvel/MARVEL.png" /></button>
                 </form>
             </div>
         </div>
