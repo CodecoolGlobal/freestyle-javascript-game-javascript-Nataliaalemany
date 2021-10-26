@@ -9,9 +9,6 @@ function initGame() {
 
 function create_menu(){
     let body = document.body
-    body.style.backgroundRepeat = "no-repeat"
-    body.style.maxHeight = "100vh"
-    body.style.maxWidth = "100%"
 }
 
 window.onload = initGame
