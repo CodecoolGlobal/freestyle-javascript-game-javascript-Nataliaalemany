@@ -28,15 +28,16 @@ button {
 .playspace {
     display: flex;
     height: 100vh;
-    width: 100vh;
+    width: 200vh;
     flex-wrap: wrap;
+    margin: 0;
 }
 
 .typing {
     align-content: center;
 }
 
-.hp {
-    height: 25vh;
+.battleground {
+    height: 80vh;
     width: 100%;
 }
