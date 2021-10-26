@@ -11,15 +11,4 @@ function createMenu(){
     let body = document.body
 }
 
-
-function loadBackGround(){
-    let background = document.getElementsByClassName("playspace");
-    background.innerHTML = '<img src="/static/pictures/LOTR/BackgroundOne.png" />';
-
-}
-
-
-
 window.onload = initGame
-
-
