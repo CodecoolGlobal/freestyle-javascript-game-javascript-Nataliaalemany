@@ -1,5 +1,7 @@
 #menu {
-    background-image: url("/static/pictures/bg.png")
+    background-image: url("/static/pictures/bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 h1 {
@@ -21,4 +23,20 @@ button {
     border: none;
     border-radius: 0;
     background-color: unset;
+}
+
+.playspace {
+    display: flex;
+    height: 100vh;
+    width: 100vh;
+    flex-wrap: wrap;
+}
+
+.typing {
+    align-content: center;
+}
+
+.hp {
+    height: 25vh;
+    width: 100%;
 }
