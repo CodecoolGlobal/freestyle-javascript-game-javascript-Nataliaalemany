@@ -1,3 +1,7 @@
+body {
+    background-image: url("/static/pictures/bg.png")
+}
+
 h1 {
     padding-top: 5vh;
     text-align: center;

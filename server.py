@@ -1,11 +1,20 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'GET':
+        return render_template('index.html')
+    else:
+        type = request.form['theme']
+        return redirect(f'/level_selection/{type}')
+
+
+@app.route('/level_selection/<type>')
+def level_selection(type):
+    return render_template('level_selection.html', theme=type)
 
 
 if __name__ == '__main__':

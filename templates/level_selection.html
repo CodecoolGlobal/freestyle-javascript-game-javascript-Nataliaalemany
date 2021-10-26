@@ -9,31 +9,31 @@
             integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
             crossorigin="anonymous"
         />
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <!-- http://proger.i-forge.net/The_smallest_transparent_pixel/ -->
     <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">
     <script type="module" src="{{ url_for('static', filename='game.js') }}" defer></script>
 </head>
 <body>
-    <h1>Choose your Theme</h1>
+    <h1>Choose level</h1>
     <div class="container align-middle">
         <div class="row">
             <div class="col">
                 <form method="post" >
                     <input type="hidden" value="lotr" name="theme">
-                    <button type=submit id="lotr"><img src="static/pictures/lotr/LOTR.jpg" /></button>
+                    <button type=submit id="lotr"><img src="/static/pictures/{{ theme }}/LevelOne.jpg" /></button>
                 </form>
             </div>
             <div class="col">
                 <form method="post" >
                     <input type="hidden" value="shrek" name="theme">
-                    <button type=submit id="shrek"><img src="static/pictures/shrek/SHREK.jpg" /></button>
+                    <button type=submit id="shrek"><img src="/static/pictures/{{ theme }}/LevelTwo.jpg" /></button>
                 </form>
             </div>
             <div class="col">
                 <form method="post" >
                     <input type="hidden" value="marvel" name="theme">
-                    <button type=submit id="marvel"><img src="static/pictures/marvel/MARVEL.jpg" /></button>
+                    <button type=submit id="marvel"><img src="/static/pictures/{{ theme }}/LevelThree.jpg" /></button>
                 </form>
             </div>
         </div>
