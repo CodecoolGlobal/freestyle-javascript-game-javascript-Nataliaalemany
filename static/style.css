@@ -25,13 +25,17 @@ button {
     background-color: unset;
 }
 
-.playspace {
+.playSpace {
     display: flex;
     height: 100vh;
     width: 100vw;
     flex-wrap: wrap;
-    margin: 0;
+    margin: 0 0 0;
 }
+
+.something {
+    margin: auto;
+    }
 
 .typing {
     border: 3px solid #696868;
@@ -39,23 +43,31 @@ button {
     text-align: center;
     align-content: center;
     background-color: #696868;
-    margin: auto auto 20px;
     color: white;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+::placeholder {
+    color: #cccccc;
 }
 
 .battleground {
-    height: 80vh;
+    margin-top: 0;
+    padding-top: 0;
+    height: 75vh;
     width: 100%;
 }
 
 .join {
-    margin: 25px;
-    padding: 5px 10px 5px;
+    margin: 25px 25px 0px;
+    padding: 5px 10px 0;
     border: 3px solid #696868;
     background-color: #696868;
     display: inline-flex;
     justify-content: space-between;
     column-gap: 20px;
     color: white;
+    height: 25px;
 }
 
