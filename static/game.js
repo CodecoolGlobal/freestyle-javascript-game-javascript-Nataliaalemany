@@ -6,11 +6,11 @@ const theme = document.getElementById('theme/lvl').innerText.split(' ')[0]
 const level = document.getElementById('theme/lvl').innerText.split(' ')[1]
 const battleGround = document.getElementById("battleground")
 // level resources
-const lotr = {enemy: 'troll.png', lvl1: 'BackgroundOne.png'}
+const lotr = {enemies: 'lvl1.png', lvl1: 'BackgroundOne.png'}
 const shrek = {}
 const marvel = {}
 let enemyCount = 0
-const difficulty = "normal"
+const difficulty = "boss"
 
 
 function initGame() {
@@ -41,22 +41,27 @@ function getLevelBackground(playingTheme) {
         return playingTheme
     }
     else if(level === 'LVL2'){
-        playingTheme.bgimage = playingTheme.lvl1
+        playingTheme.bgimage = playingTheme.lvl2
         return playingTheme
     }
     else if(level === 'LVL3'){
-        playingTheme.bgimage = playingTheme.lvl1
+        playingTheme.bgimage = playingTheme.lvl3
         return playingTheme
     }
 }
 
 function spawnEnemy(playingTheme){
     if(enemyCount < 3){
-        let enemy = document.createElement('div')
-        enemy.innerHTML = `<img src="/static/pictures/${theme}/${playingTheme.enemy}" id='enemy${enemyCount}' style="height: 250px;" />`
-        battleGround.appendChild(enemy)
-        enemyCount++
-        getRandomWord()
+        let enemy = document.createElement('div');
+        enemy.setAttribute('id', `enemy${enemyCount}`)
+        enemy.innerHTML = `<img src="/static/pictures/${theme}/${playingTheme.enemies}" id='enemy${enemyCount}' style="height: 250px;"/>`;
+        battleGround.appendChild(enemy);
+        let enemyWord = document.createElement('span');
+        enemyWord.setAttribute('class', 'caption')
+        let newEnemy = document.getElementById(`enemy${enemyCount}`);
+        enemyWord.innerHTML = getRandomWord();
+        newEnemy.appendChild(enemyWord);
+        enemyCount++;
     }
 }
 
