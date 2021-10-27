@@ -1,3 +1,6 @@
+/* index.html */
+
+
 #menu {
     background-image: url("/static/pictures/bg.png");
     background-size: cover;
@@ -19,11 +22,19 @@ h1 {
     text-align: center;
 }
 
+.indexForm {
+    bottom: 50%;
+    position: absolute;
+}
+
 button {
     border: none;
     border-radius: 0;
     background-color: unset;
+    position: relative;
 }
+
+/* gamespace.html */
 
 .playSpace {
     display: flex;
