@@ -52,7 +52,7 @@ function getLevelBackground(playingTheme) {
 function spawnEnemy(playingTheme){
     if(enemyCount < 3){
         let enemy = document.createElement('div')
-        enemy.innerHTML = `<img src="/static/pictures/${theme}/${playingTheme.enemy}" id='enemy${enemyCount}' style="height: 250px; right: ${order[enemyCount]};" />`
+        enemy.innerHTML = `<img src="/static/pictures/${theme}/${playingTheme.enemy}" id='enemy${enemyCount}' style="height: 250px;" />`
         battleGround.appendChild(enemy)
         enemyCount++
     }
