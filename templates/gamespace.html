@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{theme}} - {{level}}</title>
+    <title id="theme/lvl">{{theme}} {{level}}</title>
     <meta charset="UTF-8">
     <!-- http://proger.i-forge.net/The_smallest_transparent_pixel/ -->
 <!--    <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">-->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='game.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='game.js') }}"></script>
 </head>
 <body class="playSpace">
     <div class="join">
@@ -21,5 +21,6 @@
             placeholder="start typing">
     </div>
 </body>
+    <script></script>
 </html>
 

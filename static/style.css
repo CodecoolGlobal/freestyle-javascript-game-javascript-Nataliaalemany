@@ -70,6 +70,9 @@ button {
     width: 100%;
 }
 
+p{
+    display: inline-block;
+}
 .join {
     margin: 25px 25px 0px;
     padding: 5px 10px 0;
