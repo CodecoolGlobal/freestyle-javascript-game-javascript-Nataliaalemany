@@ -41,3 +41,7 @@ button {
     height: 80vh;
     width: 100%;
 }
+
+p{
+    display: inline-block;
+}
