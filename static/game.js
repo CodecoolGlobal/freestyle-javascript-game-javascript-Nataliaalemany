@@ -10,7 +10,8 @@ const lotr = {enemies: 'lvl1.png', lvl1: 'BackgroundOne.png'}
 const shrek = {}
 const marvel = {}
 let enemyCount = 0
-const difficulty = "boss"
+const difficulty = "normal"
+let myDictionary = {}
 
 
 function initGame() {
@@ -60,8 +61,10 @@ function spawnEnemy(playingTheme){
         let enemyWord = document.createElement('span');
         enemyWord.setAttribute('class', 'caption')
         let newEnemy = document.getElementById(`enemy${enemyCount}`);
-        enemyWord.innerHTML = getRandomWord();
+        let wordToSave = getRandomWord();
+        enemyWord.innerHTML = wordToSave;
         newEnemy.appendChild(enemyWord);
+        myDictionary[wordToSave] = `enemy${enemyCount}`;
         enemyCount++;
     }
 }
@@ -74,28 +77,27 @@ function getRandomWord(){
 
 
 function connectTextboxToWord(){
-    let connection = document.getElementsByClassName('typing');
-    for (let i=0;i<battleGround.length;i++) {
-        let wordNeeded = battleGround.children[i].children[1].innerHTML;
-        console.log(wordNeeded)
-        for (let i=0;i<wordNeeded.length;i++) {
-            if (connection[i] === wordNeeded[i]) {
-                wordNeeded[i].style.fontWeight = 'bold';
-            }
-        }
-    }
-    if (connection === wordNeeded) {
-        //remove id
-        //add points
+    let connection = document.getElementById('typing');
+    if (myDictionary.hasOwnProperty(connection.value)){
+        let currentEnemyId = myDictionary[connection.value]
+        battleGround.removeChild(document.getElementById(currentEnemyId))
+        connection.value = ''
+        delete myDictionary[connection.value]
     }
 }
 
 
 function checkWords() {
-    let connection = document.getElementsByClassName('typing');
+    let connection = document.getElementById('typing');
     connection.addEventListener('input', connectTextboxToWord);
 }
 
+
+/* let wordNeeded = battleGround.children[i].children[1].innerHTML;
+        for (let i=0;i<wordNeeded.length;i++) {
+            if (connection[i] === wordNeeded[i]) {
+                wordNeeded[i].style.fontWeight = 'bold';
+            } */
 
 window.onload = initGame
 
