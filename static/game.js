@@ -21,6 +21,7 @@ function initGame() {
     document.body.style.backgroundImage = playingTheme.bgimage
     document.body.style.backgroundSize = "cover"
     setInterval(function(){spawnEnemy(playingTheme)}, 1500)
+    checkWords()
 }
 
 function getTheme() {
@@ -67,11 +68,38 @@ function spawnEnemy(playingTheme){
 
 
 function getRandomWord(){
-    let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'boss': words.bossWords}
-    console.log(difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)])
-    return difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)]
+    let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'boss': words.bossWords};
+    return difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)];
+}
 
+
+function connectTextboxToWord(){
+    let connection = document.getElementsByClassName('typing');
+    for (let i=0;i<battleGround.length;i++) {
+        let wordNeeded = battleGround.children[i].children[1].innerHTML;
+        console.log(wordNeeded)
+        for (let i=0;i<wordNeeded.length;i++) {
+            if (connection[i] === wordNeeded[i]) {
+                wordNeeded[i].style.fontWeight = 'bold';
+            }
+        }
+    }
+    if (connection === wordNeeded) {
+        //remove id
+        //add points
+    }
+}
+
+
+function checkWords() {
+    let connection = document.getElementsByClassName('typing');
+    connection.addEventListener('input', connectTextboxToWord);
 }
 
 
 window.onload = initGame
+
+
+// first addEventListener sees what letter you write
+// second is checks if that letter is the first letter in any of the words, if yes it focuses on that enemy
+// third is word typed == enemy word, enemy disappears
