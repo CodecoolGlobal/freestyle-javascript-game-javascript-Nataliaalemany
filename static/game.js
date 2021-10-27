@@ -5,6 +5,7 @@ import * as words from "./words.js"
 const theme = document.getElementById('theme/lvl').innerText.split(' ')[0]
 const level = document.getElementById('theme/lvl').innerText.split(' ')[1]
 const battleGround = document.getElementById("battleground")
+const input = document.getElementById('input')
 // level resources
 const lotr = {enemies: 'lvl1.png', lvl1: 'BackgroundOne.png'}
 const shrek = {}
@@ -15,7 +16,6 @@ let myDictionary = {}
 
 
 function initGame() {
-    // Your game can start here, but define separate functions, don't write everything in here :)
     let playingTheme = getTheme()
     playingTheme = getLevelBackground(playingTheme)
     document.body.style.backgroundImage = `url("/static/pictures/${theme}/${playingTheme.bgimage}")`
@@ -76,32 +76,30 @@ function getRandomWord(){
 }
 
 
+function boldText(){
+    for (let i=0;i<Object.keys(myDictionary).length;i++) {
+        let enemyWord = battleGround.children[i].children[1].innerHTML
+        enemyWord = enemyWord.replace('<b>', '').replace('</b>', '')
+        enemyWord = enemyWord.replace(input.value, '<b>' + input.value + '</b>')
+        battleGround.children[i].children[1].innerHTML = enemyWord
+    }
+}
+
+
 function connectTextboxToWord(){
-    let connection = document.getElementById('typing');
-    if (myDictionary.hasOwnProperty(connection.value)){
-        let currentEnemyId = myDictionary[connection.value]
+    if (myDictionary.hasOwnProperty(input.value)){
+        let currentEnemyId = myDictionary[input.value]
         battleGround.removeChild(document.getElementById(currentEnemyId))
-        connection.value = ''
-        delete myDictionary[connection.value]
+        input.value = ''
+        delete myDictionary[input.value]
     }
 }
 
 
 function checkWords() {
-    let connection = document.getElementById('typing');
-    connection.addEventListener('input', connectTextboxToWord);
+    input.addEventListener('input', boldText);
+    input.addEventListener('input', connectTextboxToWord);
 }
 
 
-/* let wordNeeded = battleGround.children[i].children[1].innerHTML;
-        for (let i=0;i<wordNeeded.length;i++) {
-            if (connection[i] === wordNeeded[i]) {
-                wordNeeded[i].style.fontWeight = 'bold';
-            } */
-
 window.onload = initGame
-
-
-// first addEventListener sees what letter you write
-// second is checks if that letter is the first letter in any of the words, if yes it focuses on that enemy
-// third is word typed == enemy word, enemy disappears
