@@ -8,11 +8,20 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script type="module" src="{{ url_for('static', filename='game.js') }}"></script>
 </head>
-<body class="playspace">
-    <div class="hp">HP: 0</div>
-    <div class="score">Score: 0</div>
-    <div class="battleground" id="battleground">BATTLEGROUND</div>
-    <div class="typing">Typing</div>
+<body class="playSpace">
+    <div class="join">
+        <div class="hp">HP: 0</div><br>
+        <div class="score">Score: 0</div><br>
+    </div>
+    <div class="battleground">BATTLEGROUND</div><br>
+    <div class="something">
+
+            <input
+                class="typing"
+                type="text"
+                placeholder="start typing" >
+
+    </div>
 </body>
     <script></script>
 </html>

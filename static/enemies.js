@@ -1,3 +1,3 @@
-export function create_enemy() {
+export function creatEnemy() {
     console.log("Hello")
 }
