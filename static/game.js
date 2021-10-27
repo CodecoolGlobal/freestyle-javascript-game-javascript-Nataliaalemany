@@ -1,5 +1,6 @@
 // initGame();
 import * as enemies from "./enemies.js"
+import * as words from "./words.js"
 
 const theme = document.getElementById('theme/lvl').innerText.split(' ')[0]
 const level = document.getElementById('theme/lvl').innerText.split(' ')[1]
@@ -9,7 +10,7 @@ const lotr = {enemy: 'troll.png', lvl1: 'BackgroundOne.png'}
 const shrek = {}
 const marvel = {}
 let enemyCount = 0
-let order = {0: '300', 1: '150', 2: '0'}
+const difficulty = "normal"
 
 
 function initGame() {
@@ -55,6 +56,17 @@ function spawnEnemy(playingTheme){
         enemy.innerHTML = `<img src="/static/pictures/${theme}/${playingTheme.enemy}" id='enemy${enemyCount}' style="height: 250px;" />`
         battleGround.appendChild(enemy)
         enemyCount++
+        getRandomWord()
     }
 }
+
+
+function getRandomWord(){
+    let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'boss': words.bossWords}
+    console.log(difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)])
+    return difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)]
+
+}
+
+
 window.onload = initGame
