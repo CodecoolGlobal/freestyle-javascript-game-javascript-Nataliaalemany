@@ -53,9 +53,10 @@ function getLevelBackground(playingTheme) {
 }
 
 function spawnEnemy(playingTheme){
-    if(enemyCount < 3){
+    if(Object.keys(myDictionary).length < 3){
         let enemy = document.createElement('div');
-        enemy.setAttribute('id', `enemy${enemyCount}`)
+        enemy.setAttribute('class', `enemy${enemyCount%3}`)
+        enemy.setAttribute('id',`enemy${enemyCount}`)
         enemy.innerHTML = `<img src="/static/pictures/${theme}/${playingTheme.enemies}" id='enemy${enemyCount}' style="height: 250px;"/>`;
         battleGround.appendChild(enemy);
         let enemyWord = document.createElement('span');
@@ -92,8 +93,10 @@ function connectTextboxToWord(){
     if (myDictionary.hasOwnProperty(input.value)){
         let currentEnemyId = myDictionary[input.value]
         battleGround.removeChild(document.getElementById(currentEnemyId))
-        input.value = ''
+
         delete myDictionary[input.value]
+        console.log(Object.keys(myDictionary))
+        input.value = ''
     }
 }
 
