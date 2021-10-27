@@ -80,8 +80,10 @@ function boldText(){
     for (let i=0;i<Object.keys(myDictionary).length;i++) {
         let enemyWord = battleGround.children[i].children[1].innerHTML
         enemyWord = enemyWord.replace('<b>', '').replace('</b>', '')
-        enemyWord = enemyWord.replace(input.value, '<b>' + input.value + '</b>')
-        battleGround.children[i].children[1].innerHTML = enemyWord
+        if (enemyWord.startsWith(input.value)) {
+            enemyWord = enemyWord.replace(input.value, '<b>' + input.value + '</b>')
+            battleGround.children[i].children[1].innerHTML = enemyWord
+        }
     }
 }
 
