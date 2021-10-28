@@ -183,7 +183,7 @@ function moveEnemies(){
 function addToHeight(height){
     height = height.replace("px","")
     height = parseInt(height)
-    height += 1 + score / 10
+    height += 1 + score / 15
     height = `${height}px`
     return height
 }
