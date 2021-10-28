@@ -1,5 +1,12 @@
 /* index.html */
 
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
 
 #menu {
     background-image: url("/static/pictures/bg.png");
@@ -36,6 +43,17 @@ button {
     border-radius: 0;
     background-color: unset;
     position: relative;
+}
+
+.normal-button {
+    border: grey;
+    border-radius: 1px;
+    background-color: #485F6E;
+    color: white;
+}
+
+#gameover {
+    color: white;
 }
 
 /* gamespace.html */
