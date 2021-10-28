@@ -57,6 +57,7 @@ button {
     color: white;
     outline: none;
     margin-bottom: 15px;
+    font-size: 20px;
 }
 
 ::placeholder {
@@ -84,6 +85,7 @@ p{
     column-gap: 20px;
     color: white;
     height: 25px;
+    font-size: 20px;
 }
 
 .enemy0 {
@@ -107,7 +109,22 @@ p{
     position: fixed;
 }
 
+#boss {
+    left: 100vh;
+    bottom: 20vh;
+    text-align: center;
+    position: fixed;
+}
+
 .caption {
     display: block;
     color: white;
+    position: absolute;
+    border: 3px solid #696868;
+    background-color: #696868;
+    outline: none;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 20px;
 }
