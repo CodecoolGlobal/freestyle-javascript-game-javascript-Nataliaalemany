@@ -20,7 +20,7 @@ def level_selection(type):
 @app.route('/play/<theme>/<level>')
 def play(theme, level):
     gamenames = {'lotr': 'LOTR',
-                 'marvel': 'Avengers',
+                 'marvel': 'Marvel',
                  'shrek': 'Shrek'}
     levels = {'level_one': 'LVL1',
               'level_two': 'LVL2',
