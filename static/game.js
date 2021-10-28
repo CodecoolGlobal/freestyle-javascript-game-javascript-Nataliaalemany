@@ -11,12 +11,13 @@ const lotr = {enemies: enemies.lotrEnemies, lvl1: 'BackgroundOne.png', lvl2: 'Ba
 const shrek = {enemies: enemies.shrekEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.jpg'}
 const marvel = {enemies: enemies.marvelEnemies}
 let enemyCount = 0
-const difficulty = "normal"
+let difficulty = "normal"
 let moveOrder = 0
 let enemyIds = []
 let score = 0
 let health = 0
 let myDictionary = {}
+let spawnedEnemies = 0
 
 
 function initGame() {
@@ -65,47 +66,55 @@ function getLevelData(playingTheme) {
     if(level === 'LVL1'){
         playingTheme.bgimage = playingTheme.lvl1
         playingTheme.enemies = playingTheme.enemies.lvl1
+        difficulty = 'easy'
         return playingTheme
     }
     else if(level === 'LVL2'){
         playingTheme.bgimage = playingTheme.lvl2
         playingTheme.enemies = playingTheme.enemies.lvl2
+        difficulty = 'normal'
         return playingTheme
     }
     else if(level === 'LVL3'){
         playingTheme.bgimage = playingTheme.lvl3
         playingTheme.enemies = playingTheme.enemies.lvl3
+        difficulty = 'hard'
         return playingTheme
     }
 }
 
 function spawnEnemy(playingTheme){
-    if(Object.keys(myDictionary).length < 3){
+    if(enemyCount !== 3){
         let enemy = document.createElement('div');
-        enemy.setAttribute('class', `enemy${enemyCount%3}`)
-        enemy.setAttribute('id',`enemy${enemyCount}`)
+        enemy.setAttribute('class', `enemy${spawnedEnemies}`)
+        enemy.setAttribute('id',`enemy${spawnedEnemies}`)
         let randomEnemy = playingTheme.enemies[Math.floor(Math.random() * 2)]
-        enemy.innerHTML = `<img src="/static/pictures/${theme}/${randomEnemy}" id='enemy${enemyCount}' style="height: 100px;"/>`;
+        enemy.innerHTML = `<img src="/static/pictures/${theme}/${randomEnemy}" id='enemy${spawnedEnemies}' style="height: 100px;"/>`;
         battleGround.appendChild(enemy);
         let enemyWord = document.createElement('span');
         enemyWord.setAttribute('class', 'caption')
-        let newEnemy = document.getElementById(`enemy${enemyCount}`);
+        let newEnemy = document.getElementById(`enemy${spawnedEnemies}`);
         let wordToSave = getRandomWord();
         enemyWord.innerHTML = wordToSave;
         newEnemy.appendChild(enemyWord);
         if(enemyIds.length > 0){
-            enemyIds.push(`enemy${enemyCount}`)
+            enemyIds.push(`enemy${spawnedEnemies}`)
         }else{
-            enemyIds.unshift(`enemy${enemyCount}`)
+            enemyIds.unshift(`enemy${spawnedEnemies}`)
         }
-        myDictionary[wordToSave] = `enemy${enemyCount}`;
+        myDictionary[wordToSave] = `enemy${spawnedEnemies}`;
+
         enemyCount++;
+        spawnedEnemies++;
+        if(spawnedEnemies === 3){
+            spawnedEnemies = 0
+        }
     }
 }
 
 
 function getRandomWord(){
-    let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'boss': words.bossWords};
+    let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'hard': words.hardWords, 'boss': words.bossWords};
     return difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)];
 }
 
@@ -124,12 +133,12 @@ function boldText(){
 
 function connectTextboxToWord(){
     if (myDictionary.hasOwnProperty(input.value)){
-        let currentEnemyId = myDictionary[input.value]
-        battleGround.removeChild(document.getElementById(currentEnemyId))
-
-        delete myDictionary[input.value]
-        console.log(Object.keys(myDictionary))
-        input.value = ''
+        let currentEnemyId = myDictionary[input.value];
+        battleGround.removeChild(document.getElementById(currentEnemyId));
+        delete myDictionary[input.value];
+        score += 10;
+        health += 1;
+        input.value = '';
     }
 }
 
@@ -163,4 +172,5 @@ function enemyHeightCheck(){
         enemyCount--
     }
 }
+
 window.onload = initGame

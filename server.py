@@ -22,9 +22,9 @@ def play(theme, level):
     gamenames = {'lotr': 'LOTR',
                  'marvel': 'Avengers',
                  'shrek': 'Shrek'}
-    levels = {'level_one': 'LVL1',
-              'level_two': 'LVL2',
-              'level_three': 'LVL3'}
+    levels = {'levelOne': 'LVL1',
+              'levelTwo': 'LVL2',
+              'levelThree': 'LVL3'}
     return render_template('gamespace.html', theme=gamenames[theme], level=levels[level])
 
 
