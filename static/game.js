@@ -10,12 +10,11 @@ const input = document.getElementById('input')
 const lotr = {enemies: enemies.lotrEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.png'}
 const shrek = {enemies: enemies.shrekEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.jpg'}
 const marvel = {enemies: enemies.marvelEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.png'}
-const difficulty = "normal"
+let difficulty = "normal"
 let enemyIds = []
 let score = 0
 let health = 10
 let myDictionary = {}
-let spawnedEnemies = 0
 let availableEnemyIds = ['enemy0', 'enemy1', 'enemy2']
 
 
@@ -55,16 +54,19 @@ function getLevelData(playingTheme) {
     if(level === 'LVL1'){
         playingTheme.bgimage = playingTheme.lvl1
         playingTheme.enemies = playingTheme.enemies.lvl1
+        difficulty = 'easy'
         return playingTheme
     }
     else if(level === 'LVL2'){
         playingTheme.bgimage = playingTheme.lvl2
         playingTheme.enemies = playingTheme.enemies.lvl2
+        difficulty = 'normal'
         return playingTheme
     }
     else if(level === 'LVL3'){
         playingTheme.bgimage = playingTheme.lvl3
         playingTheme.enemies = playingTheme.enemies.lvl3
+        difficulty = 'hard'
         return playingTheme
     }
 }
@@ -96,43 +98,8 @@ function spawnEnemy(playingTheme){
 }
 
 
-// function spawnEnemy(playingTheme){
-//     if(enemyCount !== 3){
-//         debugger
-//         let enemyIdToSpawn = availableEnemyIds[[Math.floor(Math.random() * availableEnemyIds.length)]]
-//         let enemy = document.createElement('div');
-//         enemy.setAttribute('class', enemyIdToSpawn)
-//         enemy.setAttribute('id',enemyIdToSpawn)
-//         let randomEnemy = playingTheme.enemies[Math.floor(Math.random() * 2)]
-//         enemy.innerHTML = `<img src="/static/pictures/${theme}/${randomEnemy}" style="height: 100px;"/>`;
-//         battleGround.appendChild(enemy);
-//
-//         let enemyWord = document.createElement('span');
-//         enemyWord.setAttribute('class', 'caption')
-//         let newEnemy = document.getElementById(enemyIdToSpawn);
-//         let wordToSave = getRandomWord();
-//         enemyWord.innerHTML = wordToSave;
-//         newEnemy.appendChild(enemyWord);
-//         if(enemyIds.length > 0){
-//             enemyIds.push(enemyIdToSpawn)
-//         }else{
-//             enemyIds.unshift(enemyIdToSpawn)
-//         }
-//         myDictionary[wordToSave] = enemyIdToSpawn;
-//
-//         enemyCount++;
-//         spawnedEnemies++
-//         let index = availableEnemyIds.indexOf(enemyIdToSpawn)
-//         availableEnemyIds.splice(index,1)
-//         if(spawnedEnemies === 3){
-//             spawnedEnemies = 0
-//         }
-//     }
-// }
-
-
 function getRandomWord(){
-    let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'boss': words.bossWords};
+    let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'hard': words.hardWords, 'boss': words.bossWords};
     return difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)];
 }
 
@@ -156,9 +123,7 @@ function connectTextboxToWord(){
         availableEnemyIds.push(currentEnemyId)
         delete myDictionary[input.value]
         let enemyIndex = enemyIds.indexOf(currentEnemyId)
-        console.log(enemyIds)
         enemyIds.splice(enemyIndex, 1)
-        console.log(enemyIds)
         input.value = ''
     }
 }
@@ -170,12 +135,6 @@ function checkWords() {
 }
 
 function moveEnemies(){
-    // for(let i=0; i<=enemyCount-1; i++){
-    //     let enemyToMove = enemyIds.indexOf(enemyIds[i])
-    //     let selectedEnemy = document.getElementById(enemyIds[enemyToMove])
-    //     selectedEnemy.children[0].style.height = addToHeight(selectedEnemy.children[0].style.height)
-    //     enemyHeightCheck()
-    // }
     for(let i=0; i<=enemyIds.length-1; i++){
         let battleGround = document.getElementById('battleground')
         battleGround.children[i].children[0].style.height = addToHeight(battleGround.children[i].children[0].style.height)
@@ -191,32 +150,6 @@ function addToHeight(height){
 }
 
 function enemyHeightCheck() {
-    // for (let x = 0; x <= enemyCount - 1; x++) {
-    //     let enemyToMove = enemyIds.indexOf(enemyIds[x])
-    //     let selectedEnemy = document.getElementById(enemyIds[enemyToMove])
-    //     if (selectedEnemy.children[0].style.height === "400px") {
-    //         battleGround.removeChild(selectedEnemy)
-    //         let enemyToRemove = enemyIds.indexOf(enemyIds[x])
-    //         availableEnemyIds.push(enemyIds[enemyToRemove])
-    //         enemyIds.splice(enemyToRemove, 1)
-    //         enemyCount--
-    //         delete myDictionary[selectedEnemy.children[1].innerText]
-    //         health--
-    //     }
-    // }
-
-    // for(let x=0; x<enemyCount-1; x++){
-    //     let battleGround = document.getElementById('battleground')
-    //     if(battleGround.children[x].children[0].style.height === "400px"){
-    //         debugger
-    //         availableEnemyIds.push(battleGround.children[x].getAttribute('id'))
-    //         let enemyIndex = enemyIds.indexOf(battleGround.children[x].getAttribute('id'))
-    //         enemyIds.splice(enemyIndex)
-    //         enemyCount--
-    //         battleGround.removeChild(battleGround.children[x])
-    //         delete myDictionary[battleGround.children[x].innerText]
-    //     }
-    // }
     for(let x in enemyIds){
         let enemyToMove = enemyIds[x]
         let selectedEnemy = document.getElementById(enemyToMove)
@@ -231,4 +164,5 @@ function enemyHeightCheck() {
         }
     }
 }
+
 window.onload = initGame
