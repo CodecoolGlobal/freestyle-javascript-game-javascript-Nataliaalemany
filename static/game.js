@@ -1,4 +1,3 @@
-// initGame();
 import * as words from "./words.js"
 import * as enemies from "./enemies.js"
 
@@ -6,16 +5,21 @@ const theme = document.getElementById('theme/lvl').innerText.split(' ')[0]
 const level = document.getElementById('theme/lvl').innerText.split(' ')[1]
 const battleGround = document.getElementById("battleground")
 const input = document.getElementById('input')
+
 // level resources
-const lotr = {enemies: enemies.lotrEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.png'}
-const shrek = {enemies: enemies.shrekEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.jpg'}
+const lotr = {enemies: enemies.lotrEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.png',
+    lvl1boss: 'lvl1-boss', lvl2boss: 'lvl2-boss', lvl3boss: 'lvl3-boss'}
+const shrek = {enemies: enemies.shrekEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.jpg',
+    lvl1boss: 'lvl1-boss', lvl2boss: 'lvl2-boss', lvl3boss: 'lvl3-boss'}
 const marvel = {enemies: enemies.marvelEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.png'}
 let difficulty = "normal"
 let enemyIds = []
 let score = 0
-let health = 10
+let health = 1
 let myDictionary = {}
 let availableEnemyIds = ['enemy0', 'enemy1', 'enemy2']
+let deadEnemies = 0
+let enemySpeed = 10 + score / 10
 
 
 function initGame() {
@@ -24,9 +28,27 @@ function initGame() {
     document.body.style.backgroundImage = `url("/static/pictures/${theme}/${playingTheme.bgimage}")`
     document.body.style.backgroundImage = playingTheme.bgimage
     document.body.style.backgroundSize = "cover"
-    setInterval(function(){spawnEnemy(playingTheme)},1500)
-    setInterval(function(){gameLogic(playingTheme)}, 50)
-    // checkWords()
+    let enemyFactory = setInterval(function () {spawnEnemy(playingTheme)}, 1500)
+    let game = setInterval(function () {gameLogic()}, 50)
+    let gameOverHandle = setInterval(function (){gameOver(enemyFactory, game, gameOverHandle)})
+}
+
+function clearBoard(){
+    for(let i=0; i<battleGround.childNodes.length; i++){
+        battleGround.removeChild(battleGround.children[i])
+    }
+}
+
+function gameOver(enemyFactory, game, gameOverHandle){
+    if(health===0){
+        clearInterval(enemyFactory)
+        clearInterval(game)
+        clearInterval(gameOverHandle)
+        clearBoard()
+        battleGround.innerHTML = `<div class="center" id="gameover"><h1>Game Over</h1><br><button class="normal-button" onclick=window.location.reload()>Play Again?</button><br>` +
+            `<form action="/level_selection/${theme.toLowerCase()}"><button class="normal-button" type="submit">Go to level selection</button></form>
+            <form action="/"><button class="normal-button" type="submit">Go to theme selection</button></form></div>`
+    }
 }
 
 function gameLogic(){
@@ -36,6 +58,7 @@ function gameLogic(){
     displayStats()
     boldText()
     connectTextboxToWord()
+    gameOver()
 }
 
 function getTheme() {
@@ -70,20 +93,23 @@ function getLevelData(playingTheme) {
         return playingTheme
     }
 }
+
 function displayStats(){
     let healthPoints = document.getElementsByClassName('hp')
     let scorePoints = document.getElementsByClassName('score')
     healthPoints[0].innerText = `HP: ${health}`
     scorePoints[0].innerText = `Score: ${score}`
 }
+
 function spawnEnemy(playingTheme){
+    let randomEnemyPic = playingTheme.enemies[Math.floor(Math.random() * 2)]
+    let enemyImage = `<img src="/static/pictures/${theme}/${randomEnemyPic}" style="height: 100px;"/>`
+    let enemyIdToSpawn = availableEnemyIds[[Math.floor(Math.random() * availableEnemyIds.length)]]
     if(availableEnemyIds[0]){
-        let enemyIdToSpawn = availableEnemyIds[[Math.floor(Math.random() * availableEnemyIds.length)]]
         let enemyDiv = document.createElement('div')
         enemyDiv.setAttribute('class', enemyIdToSpawn)
         enemyDiv.setAttribute('id', enemyIdToSpawn)
-        let randomEnemyPic = playingTheme.enemies[Math.floor(Math.random() * 2)]
-        enemyDiv.innerHTML = `<img src="/static/pictures/${theme}/${randomEnemyPic}" style="height: 100px;"/>`
+        enemyDiv.innerHTML = enemyImage
         battleGround.appendChild(enemyDiv)
         let enemyWord = document.createElement('spawn')
         enemyWord.setAttribute('class', 'caption')
@@ -97,12 +123,10 @@ function spawnEnemy(playingTheme){
     }
 }
 
-
 function getRandomWord(){
     let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'hard': words.hardWords, 'boss': words.bossWords};
     return difficulties[difficulty][Math.floor(Math.random() * difficulties[difficulty].length)];
 }
-
 
 function boldText(){
     for (let i=0;i<Object.keys(myDictionary).length;i++) {
@@ -115,7 +139,6 @@ function boldText(){
     }
 }
 
-
 function connectTextboxToWord(){
     if (myDictionary.hasOwnProperty(input.value)){
         let currentEnemyId = myDictionary[input.value]
@@ -125,13 +148,9 @@ function connectTextboxToWord(){
         let enemyIndex = enemyIds.indexOf(currentEnemyId)
         enemyIds.splice(enemyIndex, 1)
         input.value = ''
+        score++
+        deadEnemies++
     }
-}
-
-
-function checkWords() {
-    input.addEventListener('input', boldText);
-    input.addEventListener('input', connectTextboxToWord);
 }
 
 function moveEnemies(){
@@ -141,10 +160,11 @@ function moveEnemies(){
         enemyHeightCheck()
     }
 }
+
 function addToHeight(height){
     height = height.replace("px","")
     height = parseInt(height)
-    height += 1
+    height += enemySpeed
     height = `${height}px`
     return height
 }
@@ -153,14 +173,14 @@ function enemyHeightCheck() {
     for(let x in enemyIds){
         let enemyToMove = enemyIds[x]
         let selectedEnemy = document.getElementById(enemyToMove)
-        if (selectedEnemy.children[0].style.height === "400px") {
+        if (selectedEnemy.children[0].style.height  >= "400px") {
             battleGround.removeChild(selectedEnemy)
             let enemyToRemove = enemyIds[x]
             enemyIds.splice(enemyToRemove, 1)
             availableEnemyIds.push(selectedEnemy.id)
             delete myDictionary[selectedEnemy.children[1].innerText]
-            console.log(enemyIds)
-            console.log(availableEnemyIds)
+            health--
+            deadEnemies++
         }
     }
 }
