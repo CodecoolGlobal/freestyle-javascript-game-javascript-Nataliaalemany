@@ -16,6 +16,10 @@ h1 {
     padding-top: 15vh;
     text-align: center;
     height: 100vh;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+
 }
 
 .row {
