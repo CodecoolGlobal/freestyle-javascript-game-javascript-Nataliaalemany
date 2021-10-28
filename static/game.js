@@ -8,11 +8,11 @@ const input = document.getElementById('input')
 
 // level resources
 const lotr = {enemies: enemies.lotrEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.png',
-    lvl1boss: 'lvl1boss.png', lvl2boss: 'lvl2boss.png', lvl3boss: 'lvl3boss.png'}
+    lvl1boss: 'lvl1-boss.png', lvl2boss: 'lvl2-boss.png', lvl3boss: 'lvl3-boss.png'}
 const shrek = {enemies: enemies.shrekEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.jpg',
-    lvl1boss: 'lvl1boss.png', lvl2boss: 'lvl2boss.png', lvl3boss: 'lvl3boss.png'}
+    lvl1boss: 'lvl1-boss.png', lvl2boss: 'lvl2-boss.png', lvl3boss: 'lvl3-boss.png'}
 const marvel = {enemies: enemies.marvelEnemies, lvl1: 'BackgroundOne.png', lvl2: 'BackgroundTwo.jpg', lvl3: 'BackgroundThree.png',
-    lvl1boss: 'lvl1boss.png', lvl2boss: 'lvl2boss.png', lvl3boss: 'lvl3boss.png'}
+    lvl1boss: 'lvl1-boss.png', lvl2boss: 'lvl2-boss.png', lvl3boss: 'lvl3-boss.png'}
 let difficulty = "normal"
 let enemyIds = []
 let score = 0
@@ -20,10 +20,9 @@ let health = 5
 let myDictionary = {}
 let availableEnemyIds = ['enemy0', 'enemy1', 'enemy2']
 let deadEnemies = 0
-let enemySpeed = 1 + score / 10
 let win = false
 let bossAppearance = false
-let goal = 1
+let goal = 15
 
 
 function initGame() {
@@ -117,7 +116,6 @@ function spawnEnemy(playingTheme){
             enemyImage = `<img src="/static/pictures/${theme}/${playingTheme.boss}" style="height: 150px;"/>`
             difficulty = 'boss'
             bossAppearance = !bossAppearance
-
         } else {
             enemyImage = `<img src="/static/pictures/${theme}/${randomEnemyPic}" style="height: 100px;"/>`
         }
@@ -140,8 +138,6 @@ function spawnEnemy(playingTheme){
         }
     }
 }
-
-
 
 function getRandomWord(){
     let difficulties = {'easy': words.easyWords, 'normal': words.normalWords, 'hard': words.hardWords, 'boss': words.bossWords};
@@ -187,7 +183,7 @@ function moveEnemies(){
 function addToHeight(height){
     height = height.replace("px","")
     height = parseInt(height)
-    height += enemySpeed
+    height += 1 + score / 10
     height = `${height}px`
     return height
 }
