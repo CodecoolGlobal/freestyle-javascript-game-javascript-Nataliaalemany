@@ -7,11 +7,8 @@
   text-align: center;
 }
 
-
 #menu {
-    background-image: url("/static/pictures/bg.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: #86989B;
 }
 
 h1 {
@@ -21,12 +18,10 @@ h1 {
 
 .container {
     padding-top: 15vh;
-    text-align: center;
-    height: 100vh;
+    height: 85vh;
     position: absolute;
     left: 50%;
     transform: translate(-50%);
-
 }
 
 .row {
@@ -50,6 +45,11 @@ button {
     border-radius: 1px;
     background-color: #485F6E;
     color: white;
+}
+
+#go-home {
+    position: fixed;
+    bottom: 0;
 }
 
 #gameover {
@@ -110,21 +110,21 @@ p{
     font-size: 20px;
 }
 
-.enemy0 {
+#enemy0 {
     left: 30vh;
     bottom: 20vh;
     text-align: center;
     position: fixed;
 }
 
-.enemy1 {
+#enemy1 {
     left: 100vh;
     bottom: 20vh;
     text-align: center;
     position: fixed;
 }
 
-.enemy2 {
+#enemy2 {
     right: 30vh;
     bottom: 20vh;
     text-align: center;
