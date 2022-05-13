@@ -26,6 +26,7 @@ let goal = 15
 
 
 function initGame() {
+    console.log("test")
     let playingTheme = getTheme()
     playingTheme = getLevelData(playingTheme)
     document.body.style.backgroundImage = `url("/static/pictures/${theme}/${playingTheme.bgimage}")`
