@@ -4,8 +4,9 @@
     
 ## JavaScript Blockbusters 
 ![App Screenshot](https://github.com/CodecoolGlobal/freestyle-javascript-game-javascript-Nataliaalemany/blob/development/static/pictures/gamepreview.png)    
+[Try the game out here!](https://blockbusters-jsgame.herokuapp.com/?)
 </div>
-<href src="https://blockbusters-jsgame.herokuapp.com/?">Try the game out here!</href>
+
 
 ## Table of Contents
 - [Description](#Description)
