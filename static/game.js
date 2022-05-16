@@ -26,15 +26,18 @@ let goal = 15
 
 
 function initGame() {
-    console.log("test")
     let playingTheme = getTheme()
-    playingTheme = getLevelData(playingTheme)
+    if(playingTheme === "menu"){
+
+    }else{
+        playingTheme = getLevelData(playingTheme)
     document.body.style.backgroundImage = `url("/static/pictures/${theme}/${playingTheme.bgimage}")`
     document.body.style.backgroundImage = playingTheme.bgimage
     document.body.style.backgroundSize = "cover"
     let enemyFactory = setInterval(function () {spawnEnemy(playingTheme)}, 1500)
     let game = setInterval(function () {gameLogic()}, 50)
     let gameOverHandle = setInterval(function (){gameOver(enemyFactory, game, gameOverHandle)})
+    }
 }
 
 function clearBoard(){
@@ -75,6 +78,9 @@ function getTheme() {
     }
     else if(theme === "Shrek"){
         return shrek
+    }
+    else if(theme === "Blockbusters"){
+        return "menu"
     }
 }
 
